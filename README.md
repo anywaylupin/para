@@ -3,7 +3,7 @@
 PARA is a Notion second brain built on the PARA method: Projects, Areas, Resources, Archive.
 It comes in three parts:
 
-- A Notion template: one System database with eight data sources, including a prompt library, a home page with a tab per PARA bucket, quick capture buttons, review views and a Field Guide.
+- A [Notion template](https://navy-peridot-4ef.notion.site/para-dashboard-template): one System database with eight data sources, including a prompt library, a home page with a tab per PARA bucket, quick capture buttons, review views and a Field Guide.
 - A Claude Code plugin that files things into the template and runs the weekly review. See [Claude Code plugin](#claude-code-plugin).
 - A Cloudflare Worker you deploy to your own account, so your tokens stay with you, that keeps the synced columns up to date.
 
@@ -61,7 +61,7 @@ Create Status by hand with the four options above.
 
 ## Setup
 
-1. Duplicate the PARA Notion template into your workspace, or bring your own database with the columns below.
+1. Duplicate the [PARA Dashboard template](https://navy-peridot-4ef.notion.site/para-dashboard-template) into your workspace, or bring your own database with the columns below.
    The template's System database holds the Infra, Repos and Skills data sources PARA syncs.
 2. Create a Notion internal connection with read and update content, and share the System database with it, plus any database its Provider or Resource ID formulas read through relations.
 3. Clone this repo and run `pnpm install`.

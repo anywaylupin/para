@@ -42,7 +42,7 @@ If a row exists, update it instead of adding a second one, and say so.
 
 ## 4. Create the row
 
-- Use the data source's template that matches the row when the tool can apply it: New Project, Build or Learn; Article, Video, Book or Course; OSS repo, Planned repo or Fork; New Skill, New Plugin, New MCP server or New Agent; Tutorial, How-to, Reference or Explanation.
+- Use the data source's template that matches the row when the tool can apply it: New Project, Build or Learn; Article, Video, Book or Course; OSS repo, Planned repo or Fork; New Skill, New Plugin, New MCP server or New Agent; Tutorial, How-to, Reference or Explanation; New prompt.
 - Set Status from the table.
 - Link the row to the project or area it serves when the user names one or it is obvious from the conversation; search Projects and Areas by name to get the page URL. Leave both empty otherwise.
 - Never fill columns the PARA Worker syncs: Infra Status, Deployment, Domain, Last deploy, Deploy state, Last checked and Error; Repos and Skills GitHub, Description, Stars, Version and the other GitHub columns. Write only Key or Source and let the sync fill the rest.
