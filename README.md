@@ -1,9 +1,13 @@
 # PARA
 
-PARA is the automation layer for a Notion second brain built on the PARA method: Projects, Areas, Resources, Archive.
-It runs as a Cloudflare Worker you deploy to your own account, so your tokens stay with you.
+PARA is a Notion second brain built on the PARA method: Projects, Areas, Resources, Archive.
+It comes in three parts:
 
-It ships three modules, each turned on by setting its data source id:
+- A Notion template: one System database with seven data sources, a home page with a tab per PARA bucket, quick capture buttons, review views and a Field Guide.
+- A Claude Code plugin that files things into the template and runs the weekly review. See [Claude Code plugin](#claude-code-plugin).
+- A Cloudflare Worker you deploy to your own account, so your tokens stay with you, that keeps the synced columns up to date.
+
+The Worker ships three modules, each turned on by setting its data source id:
 
 - The Infra monitor turns a Notion database of cloud services into a live status board.
   Every 15 minutes it reads the rows you mark for monitoring, asks each provider's API how the service is doing, and writes status, last deploy and errors back onto those rows.
@@ -115,6 +119,24 @@ The Install formula builds the command to copy:
 - Plugin: `/plugin marketplace add <Source>` then `/plugin install <Slug>@<Marketplace>`, to paste into Claude Code.
 
 The columns are Kind (select: Skill, Plugin, MCP server, Agent), Source, Slug, Marketplace, Version and Description (text), GitHub and Domain (url), Agents (multi-select), Stars (number), Install scope (select) and Install (formula).
+
+## Claude Code plugin
+
+The `para` plugin lets Claude work in your PARA template through the [Notion MCP server](https://developers.notion.com/docs/mcp), which the plugin connects for you.
+Install it from this repo's marketplace inside Claude Code:
+
+```text
+/plugin marketplace add anywaylupin/para
+/plugin install para@para
+```
+
+Then run `/mcp` once to sign in to Notion.
+It adds two skills:
+
+- `/para:capture` files a link, repo, AI skill, service, note or project into the right data source, with the matching template and status, after checking for a duplicate. Claude also uses it when you ask to save or track something.
+- `/para:review` runs the weekly review: overdue or quiet projects, old unread readings, unhealthy services, stale trials and old docs, each with a suggested action. It changes nothing until you pick.
+
+Both follow the filing guide in the template's Field Guide, find your System database by name, and never write the columns the Worker syncs.
 
 ## Sync a row now
 

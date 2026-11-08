@@ -1,0 +1,10 @@
+{
+  "name": "para",
+  "version": "0.1.0",
+  "description": "File things into a Notion PARA system and run the weekly review, through the Notion MCP server",
+  "author": { "name": "anywaylupin" },
+  "homepage": "https://github.com/anywaylupin/para",
+  "repository": "https://github.com/anywaylupin/para",
+  "license": "MIT",
+  "keywords": ["notion", "para", "second-brain", "productivity"]
+}
