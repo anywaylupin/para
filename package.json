@@ -2,7 +2,7 @@
   "name": "para",
   "version": "0.1.0",
   "private": true,
-  "description": "Turns a Notion database of cloud services into a live status board",
+  "description": "Cloudflare Worker that keeps a Notion PARA system in sync with your cloud services, GitHub repos and AI skills",
   "license": "MIT",
   "type": "module",
   "scripts": {

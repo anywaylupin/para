@@ -1,0 +1,11 @@
+{
+  "name": "para",
+  "owner": { "name": "anywaylupin" },
+  "plugins": [
+    {
+      "name": "para",
+      "source": "./plugins/para",
+      "description": "File things into a Notion PARA system and run the weekly review"
+    }
+  ]
+}
