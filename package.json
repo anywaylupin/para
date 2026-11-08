@@ -1,6 +1,6 @@
 {
   "name": "para",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Cloudflare Worker that keeps a Notion PARA system in sync with your cloud services, GitHub repos and AI skills",
   "license": "MIT",

@@ -3,7 +3,7 @@
 PARA is a Notion second brain built on the PARA method: Projects, Areas, Resources, Archive.
 It comes in three parts:
 
-- A Notion template: one System database with seven data sources, a home page with a tab per PARA bucket, quick capture buttons, review views and a Field Guide.
+- A Notion template: one System database with eight data sources, including a prompt library, a home page with a tab per PARA bucket, quick capture buttons, review views and a Field Guide.
 - A Claude Code plugin that files things into the template and runs the weekly review. See [Claude Code plugin](#claude-code-plugin).
 - A Cloudflare Worker you deploy to your own account, so your tokens stay with you, that keeps the synced columns up to date.
 
@@ -133,7 +133,7 @@ Install it from this repo's marketplace inside Claude Code:
 Then run `/mcp` once to sign in to Notion.
 It adds two skills:
 
-- `/para:capture` files a link, repo, AI skill, service, note or project into the right data source, with the matching template and status, after checking for a duplicate. Claude also uses it when you ask to save or track something.
+- `/para:capture` files a link, repo, AI skill, service, note, prompt or project into the right data source, with the matching template and status, after checking for a duplicate. Claude also uses it when you ask to save or track something.
 - `/para:review` runs the weekly review: overdue or quiet projects, old unread readings, unhealthy services, stale trials and old docs, each with a suggested action. It changes nothing until you pick.
 
 Both follow the filing guide in the template's Field Guide, find your System database by name, and never write the columns the Worker syncs.
