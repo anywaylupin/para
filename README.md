@@ -3,13 +3,15 @@
 PARA is the automation layer for a Notion second brain built on the PARA method: Projects, Areas, Resources, Archive.
 It runs as a Cloudflare Worker you deploy to your own account, so your tokens stay with you.
 
-Today it ships one module, the Infra monitor, which turns a Notion database of cloud services into a live status board.
-A Cloudflare Worker runs every 15 minutes, reads the rows you mark for monitoring, asks each provider's API how the service is doing, and writes status, last deploy and errors back onto those rows.
+It ships three modules, each turned on by setting its data source id:
+
+- The Infra monitor turns a Notion database of cloud services into a live status board.
+  Every 15 minutes it reads the rows you mark for monitoring, asks each provider's API how the service is doing, and writes status, last deploy and errors back onto those rows.
+- The [GitHub repo sync](#github-repo-sync) keeps a Repos data source in step with your GitHub repos.
+- The [AI skill and plugin sync](#ai-skill-and-plugin-sync) fills in Skills rows from their GitHub manifests.
 
 You keep curating the database by hand.
-PARA only touches the properties it owns, and only on rows with Monitor ticked and both Provider and Resource ID set.
-
-![Screenshot of a Notion board grouped by Status](docs/screenshot.png)
+PARA only touches the properties it owns, and only on the rows each module describes below.
 
 ## Providers
 
@@ -55,15 +57,19 @@ Create Status by hand with the four options above.
 
 ## Setup
 
-1. Create a Notion internal connection with read and update content, and share your services database with it, plus any database its Provider or Resource ID formulas read through relations.
-2. Clone this repo and run `pnpm install`.
-3. Copy `.dev.vars.example` to `.dev.vars` and fill in `NOTION_TOKEN`, `INFRA_DATA_SOURCE_ID`, optionally `REPOS_DATA_SOURCE_ID` and `SKILLS_DATA_SOURCE_ID`, and the provider tokens you use. See [SECURITY.md](SECURITY.md) for scopes.
-4. Run `pnpm setup:notion` to add the PARA-owned properties to each data source you set.
-5. Log in to Cloudflare with `pnpm wrangler login`.
-6. Run `pnpm wrangler kv namespace create PARA_STATE` and put its id in `wrangler.jsonc` when you fork this repo.
-7. Set each secret with `pnpm wrangler secret put NOTION_TOKEN`, and repeat for every other value in `.dev.vars`.
-8. Try one run locally: start `pnpm dev`, then `curl "http://localhost:8787/__scheduled?cron=*/15+*+*+*+*"`.
-9. Deploy with `pnpm deploy`, or push to `main` and let CI deploy, then watch a run with `pnpm wrangler tail`.
+1. Duplicate the PARA Notion template into your workspace, or bring your own database with the columns below.
+   The template's System database holds the Infra, Repos and Skills data sources PARA syncs.
+2. Create a Notion internal connection with read and update content, and share the System database with it, plus any database its Provider or Resource ID formulas read through relations.
+3. Clone this repo and run `pnpm install`.
+4. Copy each data source id: open the System database, open its settings menu, choose Manage data sources, and copy the id of Infra, Repos and Skills.
+5. Copy `.dev.vars.example` to `.dev.vars` and fill in `NOTION_TOKEN`, `INFRA_DATA_SOURCE_ID`, optionally `REPOS_DATA_SOURCE_ID` and `SKILLS_DATA_SOURCE_ID`, and the provider tokens you use. See [SECURITY.md](SECURITY.md) for scopes.
+6. Run `pnpm setup:notion` to add the PARA-owned properties to each data source you set.
+7. Log in to Cloudflare with `pnpm wrangler login`.
+8. Run `pnpm wrangler kv namespace create PARA_STATE` and replace the `id` under `kv_namespaces` in `wrangler.jsonc` with the new one.
+   The id in this repo belongs to the author's account, so deploys fail until you replace it.
+9. Set each secret with `pnpm wrangler secret put NOTION_TOKEN`, and repeat for every other value in `.dev.vars`.
+10. Try one run locally: start `pnpm dev`, then `curl "http://localhost:8787/__scheduled?cron=*/15+*+*+*+*"`.
+11. Deploy with `pnpm deploy`, or push to `main` and let CI deploy, then watch a run with `pnpm wrangler tail`.
 
 Set `ALERT_URL` to an ntfy topic URL to get one push notification per status change.
 Pick a long random topic name, because anyone who knows it can read the topic.
